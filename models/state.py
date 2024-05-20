@@ -3,7 +3,10 @@
 
 
 import models
-from models import storage
+import sys
+
+if 'storage' not in sys.modules:
+    from models import storage
 from models.city import city
 from models.base_model import BaseModel, Base
 from models.city import City
@@ -18,6 +21,10 @@ class State(BaseModel, Base):
 
     name = Column(String(128), nullable=False)
     cities = relationship("City",  backref="state", cascade="delete")
+
+    def __init__(self, *args, **kwargs):
+        """initializes state"""
+        super().__init__(*args, **kwargs)
 
     """Property method"""
     if getenv("HBNB_TYPE_STORAGE") != "db":
