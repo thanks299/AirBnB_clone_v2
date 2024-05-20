@@ -10,7 +10,7 @@ from fabric.api import env, local, put, run
 from datetime import datetime
 from os.path import exists, isdir
 env.hosts = ['35.168.3.207', '54.152.54.130']
-env.key_filename = '~/.ssh/id_rsa'
+
 
 def do_pack():
     """generates a tgz archive"""
