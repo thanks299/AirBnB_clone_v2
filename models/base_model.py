@@ -24,13 +24,13 @@ class BaseModel:
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-
         if kwargs:
             for key, value in kwargs.items():
+                if key not in ['created_at', 'updated_at', 'id'] and key != "__class__":
+                    raise KeyError(f"Invalid key: {key}")
                 if key in ['created_at', 'updated_at']:
-                    value = datetime.strptime(value, DATE_FORMAT)
-                if key != "__class__":
-                    setattr(self, key, value)
+                    value = datetime.datetime.strptime(value, DATE_FORMAT)
+                setattr(self, key, value)
 
     def __str__(self):
         """Returns a string representation of the instance"""
